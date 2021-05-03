@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -12,8 +12,8 @@ SRC_URI="mirror://nongnu/${PN}/${P/_/-}.tar.xz"
 LICENSE="GPL-2"
 SLOT="0"
 [[ "${PV}" == *beta* ]] || \
-KEYWORDS="~amd64 ~arm ~arm64 ~mips ppc x86"
-IUSE="selinux ibm static kernel_FreeBSD"
+KEYWORDS="x86"
+IUSE="selinux ibm static"
 
 CDEPEND="
 	selinux? (
@@ -50,7 +50,7 @@ src_prepare() {
 		-e '/^MAN8/s:\<pidof.8\>::g' \
 		src/Makefile || die
 
-	# stack protector is broken no x86 musl
+	# stack protector is broken on x86 musl
 	sed -i 's/-fstack-protector-strong//' src/Makefile || die
 
 	# Mung inittab for specific architectures
@@ -68,14 +68,7 @@ src_prepare() {
 			'#hvsi:2345:respawn:/sbin/agetty -L 19200 hvsi0'
 		)
 	fi
-	(use arm || use mips || use sh || use sparc) && sed -i '/ttyS0/s:#::' inittab
-	if use kernel_FreeBSD ; then
-		sed -i \
-			-e 's/linux/cons25/g' \
-			-e 's/ttyS0/cuaa0/g' \
-			-e 's/ttyS1/cuaa1/g' \
-			inittab #121786
-	fi
+	(use arm || use mips || use sparc) && sed -i '/ttyS0/s:#::' inittab
 	if use x86 || use amd64 ; then
 		sed -i \
 			-e '/ttyS[01]/s:9600:115200:' \

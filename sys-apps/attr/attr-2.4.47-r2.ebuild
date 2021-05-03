@@ -3,7 +3,7 @@
 
 EAPI="4"
 
-inherit eutils libtool toolchain-funcs multilib-minimal
+inherit eutils libtool toolchain-funcs multilib-minimal usr-ldscript
 
 DESCRIPTION="Extended attributes tools"
 HOMEPAGE="https://savannah.nongnu.org/projects/attr"
@@ -11,7 +11,7 @@ SRC_URI="mirror://nongnu/${PN}/${P}.src.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 ia64 ~mips ppc sh sparc x86"
+KEYWORDS="amd64 arm arm64 ~mips ppc x86"
 IUSE="nls static-libs"
 
 DEPEND="nls? ( sys-devel/gettext )

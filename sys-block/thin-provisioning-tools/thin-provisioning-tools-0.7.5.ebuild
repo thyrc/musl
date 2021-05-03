@@ -11,8 +11,9 @@ SRC_URI="https://github.com/jthornber/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~ia64 ~mips ~ppc ~sh ~sparc ~x86"
+KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~x86"
 IUSE="static test"
+RESTRICT="!test? ( test )"
 
 LIB_DEPEND="dev-libs/expat[static-libs(+)]
 	dev-libs/libaio[static-libs(+)]"

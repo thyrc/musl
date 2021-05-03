@@ -1,7 +1,6 @@
 #!/sbin/openrc-run
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License, v2
-# $Id$
 
 # This is here to serve as a note to myself, and future developers.
 #
@@ -208,7 +207,7 @@ stop() {
 
 	ebegin "Stopping ${myservice}"
 
-	if start-stop-daemon --quiet --test --stop --exec "${myexe}"; then
+	if start-stop-daemon --quiet --test --stop --exec "${myexe}" 2>/dev/null; then
 		start-stop-daemon --stop --exec "${myexe}" --retry TERM/5/TERM/5 \
 			${mypidfile:+--pidfile} ${mypidfile} \
 			${myname:+--name} ${myname}
